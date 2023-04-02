@@ -1,0 +1,101 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Theater</title>
+
+</head>
+
+<body>
+    <!-- Movie details will be displayed here -->
+    <div id="movie-details">
+        <ul id="films">
+            <li class="placeholder">Movie</li>
+        </ul>
+        
+        <button id="buy-ticket">Buy Ticket</button>
+
+        <h3>The Giant Gila Monster</h3>
+        <img src="https://www.gstatic.com/tv/thumb/v22vodart/2157/p2157_v_v8_ab.jpg" alt="The Giant Gila Monster">
+        <p>
+            Available Tickets: <span id="available-tickets">27</span><br>
+            Run Time: <span id="run-time">108 Minutes</span><br>
+            Show Time: <span id="show-time">4:00PM</span>
+            <button id="buy-ticket">Buy Ticket</button>
+        </p>
+    </div>
+
+
+    <script>
+        const movieEndpoint =  'http://localhost:3000/films';
+        const theaterCapacity = 60; // assuming the theater has a capacity of 60 seats
+
+        // make a GET request to the movie endpoint
+        fetch('http://localhost:3000/films')
+        method: 'GET'
+            .then(response => response.json())
+            .then(data => {
+                const animalList = document.getElementById('movie-details');
+                data.forEach(film => {
+                    const listItem = document.createElement('li')
+                    listItem.textContent = movieTitle.name;
+                    listItem.addEventListener ('click',() => showMovieDetails(movie));
+                    movieList.appendChild(listItem);
+                });
+        
+
+                // calculate the number of available tickets
+                const availableTickets = theaterCapacity - data.tickets_sold;
+
+                // display the movie details on the page
+                const movieTitle = data.title;
+                const moviePoster = data.poster;
+                const movieRuntime = data.runtime;
+                const movieShowtime = data.showtime;
+                const movieCapacity = data.movieCapacity;
+                const movieTicketsSold = data.movieTicketsSold;
+
+                const movieDetailsElement = document.getElementById('movie-details');
+
+                // elements to display the movie details
+                const titleElement = document.createElement('h3');
+                titleElement.textContent = movieTitle;
+
+                const posterElement = document.createElement('img');
+                posterElement.src = moviePoster;
+                posterElement.alt = `${movieTitle} poster`;
+
+                const runtimeElement = document.createElement('p');
+                runtimeElement.textContent = `Runtime: ${movieRuntime} minutes`;
+
+                const showtimeElement = document.createElement('p');
+                showtimeElement.textContent = `Showtime: ${movieShowtime}`;
+
+                const movieCapacityElement = document.createElement('n');
+                movieCapacity.textContent = `movieCapacity: ${movieTitle}`;
+
+                const movieTicketsSoldElement = document.createElement('t');
+                movieTicketsSoldElement.textContent = `movieTicketSold: ${movieTitle}`;
+
+                const availableTicketsElement = document.createElement('p');
+                availableTicketsElement.textContent = `Available Tickets: ${availableTickets}`;
+
+
+                // append the elements to the movieDetailsElement
+                movieDetailsElement.appendChild(titleElement);
+                movieDetailsElement.appendChild(posterElement);
+                movieDetailsElement.appendChild(runtimeElement);
+                movieDetailsElement.appendChild(showtimeElement);
+                movieDetailsElement.appendChild(movieCapacityElement);
+                movieDetailsElement.appendChild(availableTicketsElement);
+            })
+            .catch(error => console.error(error));
+    </script>
+    <script src="index.js"></script>
+</body>
+
+</html>
+
